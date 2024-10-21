@@ -1,10 +1,10 @@
 // src/Routing.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Auth from '../components/Auth'; // Login component
-import ProtectedRoute from '../components/ProtectedRoute'; // Route protection logic
-import JobBoard from '../components/JobBoard';
-import ResetPassword from '../components/ResetPassword'; // Import the ResetPassword component
+import Auth from '../ui/Auth'; // Login component
+import ProtectedRoute from '../ui/ProtectedRoute'; // Route protection logic
+import JobBoard from '../ui/JobBoard';
+import ResetPassword from '../ui/ResetPassword'; // Import the ResetPassword component
 
 
 const Routing = () => {
