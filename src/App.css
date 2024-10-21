@@ -1,10 +1,16 @@
 /* App.css */
-body {
+  body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    /*overflow-x: hidden;*/
   }
+
+  html {
+    margin: 0;
+    padding: 0;
+    /*overflow-x: hidden;*/  }
   
   h1 {
     color: #333;
@@ -81,8 +87,11 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
   }
+
 
   /* Ensure content is visible on top of the background */
 .auth-form, .jobboard-content, .reset-password-form {
@@ -99,6 +108,7 @@ body {
 .auth-container {
   max-width: 400px;
   margin: 50px auto;
+  margin-top: 0px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
