@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/jobboard/static/css/main.a039efc2.css",
-    "main.js": "/jobboard/static/js/main.0dc25a98.js",
-    "static/js/198.16b83522.chunk.js": "/jobboard/static/js/198.16b83522.chunk.js",
-    "static/media/logo.png": "/jobboard/static/media/logo.321728ef2693cc223a7e.png",
-    "index.html": "/jobboard/index.html",
-    "main.a039efc2.css.map": "/jobboard/static/css/main.a039efc2.css.map",
-    "main.0dc25a98.js.map": "/jobboard/static/js/main.0dc25a98.js.map",
-    "198.16b83522.chunk.js.map": "/jobboard/static/js/198.16b83522.chunk.js.map"
+    "main.css": "/jobboard-private/static/css/main.a039efc2.css",
+    "main.js": "/jobboard-private/static/js/main.64c7c758.js",
+    "static/js/198.16b83522.chunk.js": "/jobboard-private/static/js/198.16b83522.chunk.js",
+    "static/media/logo.png": "/jobboard-private/static/media/logo.321728ef2693cc223a7e.png",
+    "index.html": "/jobboard-private/index.html",
+    "main.a039efc2.css.map": "/jobboard-private/static/css/main.a039efc2.css.map",
+    "main.64c7c758.js.map": "/jobboard-private/static/js/main.64c7c758.js.map",
+    "198.16b83522.chunk.js.map": "/jobboard-private/static/js/198.16b83522.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a039efc2.css",
-    "static/js/main.0dc25a98.js"
+    "static/js/main.64c7c758.js"
   ]
 }
