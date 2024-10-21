@@ -1,59 +1,147 @@
-
 /* src/components/JobBoard.css */
+.job-board {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-.jobboard-container {
-    padding: 20px;
+.responsive-table-container {
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsive-table th,
+.responsive-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.responsive-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.view-job-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+  .responsive-table thead {
+    display: none;
   }
-  
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    flex: 1;
-    min-width: 200px;
-    padding: 8px;
-    font-size: 1em;
-  }
-  
-  .filter-select {
-    padding: 8px;
-    font-size: 1em;
-  }
-  
-  .job-table {
+
+  .responsive-table,
+  .responsive-table tbody,
+  .responsive-table tr,
+  .responsive-table td {
+    display: block;
     width: 100%;
-    border-collapse: collapse;
   }
-  
-  .job-table th,
-  .job-table td {
+
+  .responsive-table tr {
+    margin-bottom: 20px;
     border: 1px solid #ddd;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .responsive-table td {
     text-align: left;
+    padding: 8px 0;
+    position: relative;
+    border-bottom: none;
   }
-  
-  .job-table th {
-    background-color: #f2f2f2;
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    color: #666;
   }
-  
-  .job-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+  .responsive-table td span {
+    display: block;
+    word-break: break-word;
   }
-  
-  .job-table tr:hover {
-    background-color: #f1f1f1;
+
+  .view-job-btn {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
   }
-  
-  .job-table a {
-    color: #007bff;
-    text-decoration: none;
+
+  .filters {
+    flex-direction: column;
   }
-  
-  .job-table a:hover {
-    text-decoration: underline;
+
+  .filter-input {
+    width: 100%;
+    margin-bottom: 10px;
   }
-  
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination button {
+    margin: 5px;
+  }
+}
+
+/* Add these styles to your existing JobBoard.css */
+
+.search-input,
+.filter-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 150px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
