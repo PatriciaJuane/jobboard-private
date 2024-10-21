@@ -1,32 +1,23 @@
 // src/components/Auth.js
 import React, { useState, useEffect } from 'react';
+import useAuthentication from './hooks/useAuthentication';
 import { redirect, useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabaseClient';
 import './Auth.css';  // Import the CSS file
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login', 'signup', or 'resetPassword'
+
+  const { signUp, signIn, signOut, resetPassword, getSubscription } = useAuthentication();
 
   const navigate = useNavigate();
 
-  const getURL = () => {
-    let url = process?.env?.PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-      'http://localhost:3000/'
-    // Make sure to include `https://` when not localhost.
-    url = url.startsWith('http') ? url : `https://${url}`
-    // Make sure to include a trailing `/`.
-    url = url.endsWith('/') ? url : `${url}/`
-    return url
-  }
-  
-
   useEffect(() => {
-    const { subscription } = supabase.auth.onAuthStateChange((event, session) => {
+    const { subscription } = getSubscription((event, session) => {
       setSession(session);
       if (session && event !== 'PASSWORD_RECOVERY') {
         navigate('/jobboard');
@@ -48,10 +39,7 @@ const Auth = () => {
     setError(null);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
+      const { data, error } = await signIn(email, password);
 
       if (error) {
         setError(error.message);
@@ -73,10 +61,7 @@ const Auth = () => {
     setError(null);
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      });
+      const { data, error } = await signUp(email, password);
 
       if (error) {
         setError(error.message);
@@ -98,9 +83,7 @@ const Auth = () => {
     setError(null);
 
     try {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${getURL()}reset-password`,
-      });
+      const { data, error } = resetPassword();
 
       if (error) {
         setError(error.message);
@@ -225,7 +208,7 @@ const Auth = () => {
             <h2>Welcome, {session.user.email}</h2>
             <button
               onClick={async () => {
-                await supabase.auth.signOut();
+                await signOut();
                 setSession(null);
                 navigate('/');
               }}
