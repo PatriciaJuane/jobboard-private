@@ -22,7 +22,6 @@ jobs:
         run: |
           echo REACT_APP_SUPABASE_URL=${{ secrets.REACT_APP_SUPABASE_URL }} >> .env
           echo REACT_APP_SUPABASE_ANON_KEY=${{ secrets.REACT_APP_SUPABASE_ANON_KEY }} >> .env
-          # Add other environment variables as needed
       
       - name: Build
         run: npm run build
