@@ -1,7 +1,7 @@
 {
   "name": "job-board",
   "version": "0.1.0",
-  "homepage": "https://patriciajuane.github.io/jobboard-private",
+  "homepage": "https://patriciajuane.github.io/jobboard-private/",
   "private": true,
   "dependencies": {
     "@supabase/auth-ui-react": "^0.4.7",
