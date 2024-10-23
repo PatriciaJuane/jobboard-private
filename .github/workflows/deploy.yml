@@ -18,12 +18,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Debug package.json and node_modules
+      - name: Create .env file
         run: |
-          echo "Contents of package.json:"
-          cat package.json
-          echo "Installed packages:"
-          npm list --depth=0
+          echo REACT_APP_SUPABASE_URL=${{ secrets.REACT_APP_SUPABASE_URL }} >> .env
+          echo REACT_APP_SUPABASE_ANON_KEY=${{ secrets.REACT_APP_SUPABASE_ANON_KEY }} >> .env
+          # Add other environment variables as needed
       
       - name: Build
         run: npm run build
