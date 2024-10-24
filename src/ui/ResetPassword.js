@@ -31,7 +31,7 @@ const ResetPassword = () => {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) throw error;
       setSuccess(true);
-      setTimeout(() => navigate('/'), 3000); // Redirect to login after 3 seconds
+      setTimeout(() => navigate('/jobboard-private'), 3000); // Redirect to login after 3 seconds
     } catch (error) {
       setError(error.message);
     } finally {

@@ -145,3 +145,51 @@
   background-color: #007bff;
   color: white;
 }
+
+/* JobBoard.css */
+
+/* Top Menu Styles */
+.top-menu {
+  background-color: #333; /* Dark background */
+  color: white; /* Text color */
+  position: fixed; /* Fixes the menu at the top */
+  top: 0; /* Aligns to the top */
+  left: 0; /* Aligns to the left */
+  right: 0; /* Aligns to the right */
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space between logo and links */
+  align-items: center; /* Center items vertically */
+  padding: 10px 20px; /* Padding for spacing */
+  z-index: 1000; /* Ensures it stays above other content */
+}
+
+/* Logo Styles */
+.top-menu .logo img {
+  height: 40px; /* Logo height */
+}
+
+/* Menu Links Styles */
+.top-menu .menu-links a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline */
+  margin-right: 20px; /* Space between links */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.top-menu .menu-links a:hover {
+  color: #ffcc00; /* Change color on hover */
+}
+
+.top-menu .menu-links button {
+  background-color: transparent; /* Transparent background */
+  color: white; /* Text color */
+  border: 1px solid white; /* White border */
+  padding: 5px 10px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+.top-menu .menu-links button:hover {
+  background-color: white; /* Background color on hover */
+  color: #333; /* Text color on hover */
+}

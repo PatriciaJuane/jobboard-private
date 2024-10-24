@@ -59,7 +59,7 @@ const JobBoard = () => {
     if (error) {
       console.error('Error logging out:', error.message);
     } else {
-      navigate('/');
+      navigate('/jobboard-private');
     }
   };
 
@@ -81,6 +81,18 @@ const JobBoard = () => {
 
   return (
     <div className="job-board">
+      {/* Top Menu */}
+      <div className="top-menu" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+        <div className="logo">
+          <img src="../../assets/icon.png" alt="Site Logo" style={{ height: '40px' }} /> {/* Replace with actual logo path */}
+        </div>
+        <div className="menu-links">
+          <a href="/home" style={{ marginRight: '20px' }}>Home</a>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
+
+
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button onClick={handleLogout}>Logout</button>
       </div>
