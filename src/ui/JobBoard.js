@@ -37,7 +37,7 @@ const JobBoard = () => {
       setCurrentPage(1);
       console.log(`Filtered Jobs: ${JSON.stringify(results)}`); // Debugging line
     }
-  }, [searchTerm, jobs]); // Ensure this effect runs when jobs or searchTerm changes
+  }, [searchTerm, jobs, filteredJobs]); // Added filteredJobs to the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job =>
@@ -51,7 +51,7 @@ const JobBoard = () => {
       setFilteredJobs(results);
       setCurrentPage(1);
     }
-  }, [filters, jobs]); // Ensure this effect runs when filters or jobs change
+  }, [filters, jobs, filteredJobs]); // Added filteredJobs to the dependency array
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value); // This updates the search term
