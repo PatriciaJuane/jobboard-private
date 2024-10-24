@@ -20,7 +20,7 @@ const Auth = () => {
     const { subscription } = getSubscription((event, session) => {
       setSession(session);
       if (session && event !== 'PASSWORD_RECOVERY') {
-        navigate('/jobboard');
+        navigate('/home');
       }
     });
 
@@ -44,7 +44,7 @@ const Auth = () => {
         setError(error.message);
       } else if (data.session) {
         // Successful login, redirect to jobboard
-        navigate('/jobboard');
+        navigate('/home');
       }
     } catch (error) {
       setError('Something went wrong. Please try again later.');
@@ -66,7 +66,7 @@ const Auth = () => {
         setError(error.message);
       } else if (data.session) {
         // Successful signup, redirect to jobboard
-        navigate('/jobboard');
+        navigate('/home');
       }
     } catch (error) {
       setError('Something went wrong. Please try again later.');

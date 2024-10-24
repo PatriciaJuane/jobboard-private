@@ -11,9 +11,9 @@ const Routing = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Auth />} /> {/* Login Route */}
+        <Route path="/jobboard-private/" element={<Auth />} /> {/* Login Route */}
         <Route
-          path="/jobboard"
+          path="/home"
           element={
             <ProtectedRoute>
               <JobBoard />
