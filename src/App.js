@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
   return (
     <div className="app-container"> 
-      <Routing /> {/* The routing logic is now handled here */}
+      <Routing /> {/* The routing logic is now handled here*/}
     </div>
   );
 };
