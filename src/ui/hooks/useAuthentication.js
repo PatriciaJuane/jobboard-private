@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
 import { supabase } from '../../config/supabaseClient';
 
 const useAuthentication = () => {
-  const [session, setSession] = useState(null);
 
 
   const getURL = () => {

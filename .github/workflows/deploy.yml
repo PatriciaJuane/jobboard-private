@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths-ignore:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Display package.json contents
+        run: cat package.json
+      
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Create .env file
+        run: |
+          echo REACT_APP_SUPABASE_URL=${{ secrets.REACT_APP_SUPABASE_URL }} >> .env
+          echo REACT_APP_SUPABASE_ANON_KEY=${{ secrets.REACT_APP_SUPABASE_ANON_KEY }} >> .env
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages  # Ensure this is set to gh-pages

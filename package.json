@@ -1,12 +1,12 @@
 {
   "name": "job-board",
   "version": "0.1.0",
-  "homepage": "https://patriciajuane.github.io/jobboard-private",
+  "homepage": "https://patriciajuane.github.io/jobboard-private/",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.5",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
-    "@supabase/supabase-js": "^2.45.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -16,7 +16,8 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "typescript": "4.9.5"
   },
   "scripts": {
     "predeploy": "npm run build",
