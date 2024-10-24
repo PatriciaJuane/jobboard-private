@@ -1,7 +1,7 @@
 // src/components/Auth.js
 import React, { useState, useEffect } from 'react';
 import useAuthentication from './hooks/useAuthentication';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Auth.css';  // Import the CSS file
 
 const Auth = () => {
@@ -23,15 +23,14 @@ const Auth = () => {
         navigate('/jobboard');
       }
     });
-  
+
     // Cleanup by unsubscribing
     return () => {
       if (subscription) {
         subscription.unsubscribe();
       }
     };
-  }, [navigate]);
-  
+  }, [navigate, getSubscription]); // Added getSubscription to the dependency array
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -83,7 +82,7 @@ const Auth = () => {
     setError(null);
 
     try {
-      const { data, error } = resetPassword();
+      const { error } = resetPassword(); // Removed 'data' since it's not used
 
       if (error) {
         setError(error.message);

@@ -21,7 +21,7 @@ const JobBoard = () => {
       setFilteredJobs(fetchedJobs);
     };
     fetchJobs();
-  }, []);
+  }, [supabaseDb]); // Added supabaseDb to the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job =>
