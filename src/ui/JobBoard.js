@@ -24,14 +24,20 @@ const JobBoard = () => {
   }, [supabaseDb]); // Added supabaseDb to the dependency array
 
   useEffect(() => {
-    const results = jobs.filter(job =>
-      Object.keys(job).some(key =>
+    const results = jobs.filter(job => {
+      const matches = Object.keys(job).some(key =>
         job[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-    setFilteredJobs(results);
-    setCurrentPage(1);
-  }, [searchTerm, jobs]);
+      );
+      return matches;
+    });
+
+    // Only update state if results have changed
+    if (results.length !== filteredJobs.length || !results.every((job, index) => JSON.stringify(job) === JSON.stringify(filteredJobs[index]))) {
+      setFilteredJobs(results);
+      setCurrentPage(1);
+      console.log(`Filtered Jobs: ${JSON.stringify(results)}`); // Debugging line
+    }
+  }, [searchTerm, jobs]); // Ensure this effect runs when jobs or searchTerm changes
 
   useEffect(() => {
     const results = jobs.filter(job =>
@@ -39,12 +45,17 @@ const JobBoard = () => {
         job[key].toString().toLowerCase().includes(value.toLowerCase())
       )
     );
-    setFilteredJobs(results);
-    setCurrentPage(1);
-  }, [filters, jobs]);
+
+    // Only update state if results have changed
+    if (results.length !== filteredJobs.length || !results.every((job, index) => JSON.stringify(job) === JSON.stringify(filteredJobs[index]))) {
+      setFilteredJobs(results);
+      setCurrentPage(1);
+    }
+  }, [filters, jobs]); // Ensure this effect runs when filters or jobs change
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm(e.target.value); // This updates the search term
+    // No need to call setFilteredJobs here, as it's handled in the useEffect
   };
 
   const handleFilter = (attribute, value) => {
@@ -82,20 +93,16 @@ const JobBoard = () => {
   return (
     <div className="job-board">
       {/* Top Menu */}
-      <div className="top-menu" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+      <div className="top-menu">
         <div className="logo">
-          <img src="../../assets/icon.png" alt="Site Logo" style={{ height: '40px' }} /> {/* Replace with actual logo path */}
+          <img src="../assets/icon.png" alt="Site Logo" className="logo-image" /> {/* Adjusted path to assets */}
         </div>
         <div className="menu-links">
-          <a href="/home" style={{ marginRight: '20px' }}>Home</a>
-          <button onClick={handleLogout}>Logout</button>
+          <a href="/home" className="menu-link">Home</a>
+          <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
       </div>
 
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
       <h1>The Tech Scene - Job Board</h1>
 
       <input
@@ -147,7 +154,7 @@ const JobBoard = () => {
                 <td data-label="Workplace Type">{job.workplace_type}</td>
                 <td data-label="Actions">
                   <a href={job.url} target="_blank" rel="noopener noreferrer" className="view-job-btn">
-                    View Job
+                    View
                   </a>
                 </td>
               </tr>
