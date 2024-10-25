@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSupabaseDb } from './hooks/useSupabaseDb';
 import { supabase } from '../config/supabaseClient';
 import './JobBoard.css';
+import logo from '../assets/icon.png';
 
 const JobBoard = () => {
   const [jobs, setJobs] = useState([]);
@@ -35,9 +36,8 @@ const JobBoard = () => {
     if (results.length !== filteredJobs.length || !results.every((job, index) => JSON.stringify(job) === JSON.stringify(filteredJobs[index]))) {
       setFilteredJobs(results);
       setCurrentPage(1);
-      console.log(`Filtered Jobs: ${JSON.stringify(results)}`); // Debugging line
     }
-  }, [searchTerm, jobs, filteredJobs]); // Added filteredJobs to the dependency array
+  }, [searchTerm, jobs]); // Ensure jobs and searchTerm are in the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job =>
@@ -95,7 +95,7 @@ const JobBoard = () => {
       {/* Top Menu */}
       <div className="top-menu">
         <div className="logo">
-          <img src="../assets/icon.png" alt="Site Logo" className="logo-image" /> {/* Adjusted path to assets */}
+          <img src={logo} alt="Site Logo" className="logo-image" />
         </div>
         <div className="menu-links">
           <a href="/home" className="menu-link">Home</a>
@@ -105,13 +105,13 @@ const JobBoard = () => {
 
       <h1>The Tech Scene - Job Board</h1>
 
-      <input
+      {/* <input
         type="text"
         placeholder="Search jobs..."
         value={searchTerm}
         onChange={handleSearch}
         className="search-input"
-      />
+      /> */}
 
       <div className="filters">
         {Object.entries(attributeLabels).map(([attribute, label]) => (
