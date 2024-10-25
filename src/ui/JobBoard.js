@@ -37,7 +37,7 @@ const JobBoard = () => {
       setFilteredJobs(results);
       setCurrentPage(1);
     }
-  }, [searchTerm, jobs]); // Ensure jobs and searchTerm are in the dependency array
+  }, [searchTerm, jobs, filteredJobs]); // Ensure jobs and searchTerm are in the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job =>
@@ -53,10 +53,10 @@ const JobBoard = () => {
     }
   }, [filters, jobs, filteredJobs]); // Added filteredJobs to the dependency array
 
-  const handleSearch = (e) => {
+  /* const handleSearch = (e) => {
     setSearchTerm(e.target.value); // This updates the search term
     // No need to call setFilteredJobs here, as it's handled in the useEffect
-  };
+  }; */
 
   const handleFilter = (attribute, value) => {
     setFilters(prevFilters => ({
