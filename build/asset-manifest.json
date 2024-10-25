@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/jobboard-private/static/css/main.a039efc2.css",
-    "main.js": "/jobboard-private/static/js/main.58a85e69.js",
+    "main.css": "/jobboard-private/static/css/main.bd7140e2.css",
+    "main.js": "/jobboard-private/static/js/main.1262230d.js",
     "static/js/198.16b83522.chunk.js": "/jobboard-private/static/js/198.16b83522.chunk.js",
     "static/media/logo.png": "/jobboard-private/static/media/logo.321728ef2693cc223a7e.png",
+    "static/media/icon.png": "/jobboard-private/static/media/icon.b7a644c6a553f1c6a6fd.png",
     "index.html": "/jobboard-private/index.html",
-    "main.a039efc2.css.map": "/jobboard-private/static/css/main.a039efc2.css.map",
-    "main.58a85e69.js.map": "/jobboard-private/static/js/main.58a85e69.js.map",
+    "main.bd7140e2.css.map": "/jobboard-private/static/css/main.bd7140e2.css.map",
+    "main.1262230d.js.map": "/jobboard-private/static/js/main.1262230d.js.map",
     "198.16b83522.chunk.js.map": "/jobboard-private/static/js/198.16b83522.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a039efc2.css",
-    "static/js/main.58a85e69.js"
+    "static/css/main.bd7140e2.css",
+    "static/js/main.1262230d.js"
   ]
 }

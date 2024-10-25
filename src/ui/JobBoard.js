@@ -8,7 +8,7 @@ import logo from '../assets/icon.png';
 const JobBoard = () => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [jobsPerPage] = useState(10);
@@ -27,7 +27,7 @@ const JobBoard = () => {
   useEffect(() => {
     const results = jobs.filter(job => {
       const matches = Object.keys(job).some(key =>
-        job[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
+        job[key].toString().toLowerCase().includes('') // searchTerm.toLowerCase
       );
       return matches;
     });
@@ -37,7 +37,7 @@ const JobBoard = () => {
       setFilteredJobs(results);
       setCurrentPage(1);
     }
-  }, [searchTerm, jobs, filteredJobs]); // Ensure jobs and searchTerm are in the dependency array
+  }, [jobs, filteredJobs]); // Ensure jobs and searchTerm are in the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job =>
