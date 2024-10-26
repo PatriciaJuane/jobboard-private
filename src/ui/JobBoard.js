@@ -103,7 +103,7 @@ const JobBoard = () => {
         </div>
       </div>
 
-      <h1>The Tech Scene - Job Board</h1>
+      <h1>DevAccelerator's Private Job Board</h1>
 
       {/* <input
         type="text"
