@@ -134,8 +134,7 @@ const JobBoard = () => {
               <th>Company</th>
               <th>Location</th>
               <th>Seniority</th>
-              <th>Saving Rate (Frugal)</th>
-              <th>Saving Rate (Comfortable)</th>
+              <th>Salary Range</th>
               <th>Country</th>
               <th>Workplace Type</th>
               <th>Actions</th>
@@ -148,8 +147,7 @@ const JobBoard = () => {
                 <td data-label="Company">{job.company_name}</td>
                 <td data-label="Location">{job.location}</td>
                 <td data-label="Seniority">{job.seniority}</td>
-                <td data-label="Saving Rate (Frugal)">{job.savingRateFrugal}</td>
-                <td data-label="Saving Rate (Comfortable)">{job.savingRateComfortable}</td>
+                <td data-label="Salary Range">{job.salaryRange}</td>
                 <td data-label="Country">{job.country}</td>
                 <td data-label="Workplace Type">{job.workplace_type}</td>
                 <td data-label="Actions">
