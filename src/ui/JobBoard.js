@@ -17,12 +17,16 @@ const JobBoard = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const fetchedJobs = await supabaseDb.getJobs();
-      setJobs(fetchedJobs);
-      setFilteredJobs(fetchedJobs);
+      try {
+        const fetchedJobs = await supabaseDb.getJobs();
+        setJobs(fetchedJobs);
+        setFilteredJobs(fetchedJobs);
+      } catch (error) {
+        console.error('Error fetching jobs:', error.message); // Log the error message
+      }
     };
     fetchJobs();
-  }, [supabaseDb]); // Added supabaseDb to the dependency array
+  }, []); // Added supabaseDb to the dependency array
 
   useEffect(() => {
     const results = jobs.filter(job => {
@@ -42,7 +46,7 @@ const JobBoard = () => {
   useEffect(() => {
     const results = jobs.filter(job =>
       Object.entries(filters).every(([key, value]) =>
-        job[key].toString().toLowerCase().includes(value.toLowerCase())
+        job[key] && job[key].toString().toLowerCase().includes(value.toLowerCase())
       )
     );
 
@@ -51,7 +55,7 @@ const JobBoard = () => {
       setFilteredJobs(results);
       setCurrentPage(1);
     }
-  }, [filters, jobs, filteredJobs]); // Added filteredJobs to the dependency array
+  }, [filters, jobs]); // Ensure filters and jobs are in the dependency array
 
   /* const handleSearch = (e) => {
     setSearchTerm(e.target.value); // This updates the search term
@@ -137,6 +141,7 @@ const JobBoard = () => {
               <th>Salary Range</th>
               <th>Country</th>
               <th>Workplace Type</th>
+              <th>Date Added</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -150,9 +155,10 @@ const JobBoard = () => {
                 <td data-label="Salary Range">{job.salaryRange}</td>
                 <td data-label="Country">{job.country}</td>
                 <td data-label="Workplace Type">{job.workplace_type}</td>
+                <td data-label="Date Added">{job.getFormattedCreatedAt()}</td>
                 <td data-label="Actions">
                   <a href={job.url} target="_blank" rel="noopener noreferrer" className="view-job-btn">
-                    View
+                    Apply
                   </a>
                 </td>
               </tr>

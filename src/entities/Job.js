@@ -33,4 +33,9 @@ export class Job {
   getFormattedPostDate() {
     return this.postDate.toLocaleDateString();
   }
+
+  // New method to format createdAt
+  getFormattedCreatedAt() {
+    return this.createdAt.toLocaleDateString(); // Formats createdAt as a string
+  }
 }
