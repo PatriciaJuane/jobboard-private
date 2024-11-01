@@ -9,6 +9,7 @@ const JobBoard = () => {
   const [jobs, setJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const supabaseDb = useSupabaseDb();
   const [sortConfig, setSortConfig] = useState({ key: 'title', direction: 'ascending' });
@@ -25,8 +26,16 @@ const JobBoard = () => {
     fetchJobs();
   }, []);
 
+  // Filter jobs based on search query
+  const filteredJobs = jobs.filter(job => {
+    return Object.values(job).some(value => 
+      value !== undefined && value !== null && // Check if value is defined and not null
+      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
   // Sorting function
-  const sortedJobs = [...jobs].sort((a, b) => {
+  const sortedJobs = [...filteredJobs].sort((a, b) => {
     if (a[sortConfig.key] < b[sortConfig.key]) {
       return sortConfig.direction === 'ascending' ? -1 : 1;
     }
@@ -81,6 +90,17 @@ const JobBoard = () => {
       </div>
 
       <h1>DevAccelerator's Private Job Board</h1>
+
+      {/* Search Input */}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search jobs..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+      </div>
 
       <div className="responsive-table-container">
         <table className="responsive-table">
