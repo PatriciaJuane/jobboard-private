@@ -7,66 +7,53 @@ import logo from '../assets/icon.png';
 
 const JobBoard = () => {
   const [jobs, setJobs] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState([]);
-  // const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [jobsPerPage] = useState(10);
   const navigate = useNavigate();
   const supabaseDb = useSupabaseDb();
+  const [sortConfig, setSortConfig] = useState({ key: 'title', direction: 'ascending' });
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const fetchedJobs = await supabaseDb.getJobs();
         setJobs(fetchedJobs);
-        setFilteredJobs(fetchedJobs);
       } catch (error) {
-        console.error('Error fetching jobs:', error.message); // Log the error message
+        console.error('Error fetching jobs:', error.message);
       }
     };
     fetchJobs();
-  }, []); // Added supabaseDb to the dependency array
+  }, []);
 
-  useEffect(() => {
-    const results = jobs.filter(job => {
-      const matches = Object.keys(job).some(key =>
-        job[key].toString().toLowerCase().includes('') // searchTerm.toLowerCase
-      );
-      return matches;
-    });
-
-    // Only update state if results have changed
-    if (results.length !== filteredJobs.length || !results.every((job, index) => JSON.stringify(job) === JSON.stringify(filteredJobs[index]))) {
-      setFilteredJobs(results);
-      setCurrentPage(1);
+  // Sorting function
+  const sortedJobs = [...jobs].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
     }
-  }, [jobs, filteredJobs]); // Ensure jobs and searchTerm are in the dependency array
-
-  useEffect(() => {
-    const results = jobs.filter(job =>
-      Object.entries(filters).every(([key, value]) =>
-        job[key] && job[key].toString().toLowerCase().includes(value.toLowerCase())
-      )
-    );
-
-    // Only update state if results have changed
-    if (results.length !== filteredJobs.length || !results.every((job, index) => JSON.stringify(job) === JSON.stringify(filteredJobs[index]))) {
-      setFilteredJobs(results);
-      setCurrentPage(1);
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
     }
-  }, [filters, jobs]); // Ensure filters and jobs are in the dependency array
+    return 0;
+  });
 
-  /* const handleSearch = (e) => {
-    setSearchTerm(e.target.value); // This updates the search term
-    // No need to call setFilteredJobs here, as it's handled in the useEffect
-  }; */
+  // Pagination
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = sortedJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  const handleFilter = (attribute, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [attribute]: value
-    }));
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortArrow = (key) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === 'ascending' ? '↑' : '↓';
+    }
+    return '';
   };
 
   const handleLogout = async () => {
@@ -78,21 +65,7 @@ const JobBoard = () => {
     }
   };
 
-  // Pagination
-  const indexOfLastJob = currentPage * jobsPerPage;
-  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Add this object to map attribute names to user-friendly labels
-  const attributeLabels = {
-    title: 'Job Title',
-    company_name: 'Company',
-    location: 'Location',
-    seniority: 'Seniority Level',
-    workplace_type: 'Workplace Type' // todo desplegable
-  };
 
   return (
     <div className="job-board">
@@ -109,39 +82,18 @@ const JobBoard = () => {
 
       <h1>DevAccelerator's Private Job Board</h1>
 
-      {/* <input
-        type="text"
-        placeholder="Search jobs..."
-        value={searchTerm}
-        onChange={handleSearch}
-        className="search-input"
-      /> */}
-
-      <div className="filters">
-        {Object.entries(attributeLabels).map(([attribute, label]) => (
-          <input
-            key={attribute}
-            type="text"
-            placeholder={`Filter by ${label}...`}
-            value={filters[attribute] || ''}
-            onChange={(e) => handleFilter(attribute, e.target.value)}
-            className="filter-input"
-          />
-        ))}
-      </div>
-
       <div className="responsive-table-container">
         <table className="responsive-table">
           <thead>
             <tr>
-              <th>Job Title</th>
-              <th>Company</th>
-              <th>Location</th>
-              <th>Seniority</th>
-              <th>Salary Range</th>
-              <th>Country</th>
-              <th>Workplace Type</th>
-              <th>Date Added</th>
+              <th onClick={() => requestSort('title')}>Job Title {getSortArrow('title')}</th>
+              <th onClick={() => requestSort('company_name')}>Company {getSortArrow('company_name')}</th>
+              <th onClick={() => requestSort('location')}>Location {getSortArrow('location')}</th>
+              <th onClick={() => requestSort('seniority')}>Seniority {getSortArrow('seniority')}</th>
+              <th onClick={() => requestSort('salaryRange')}>Salary Range {getSortArrow('salaryRange')}</th>
+              <th onClick={() => requestSort('country')}>Country {getSortArrow('country')}</th>
+              <th onClick={() => requestSort('workplace_type')}>Workplace Type {getSortArrow('workplace_type')}</th>
+              <th onClick={() => requestSort('createdAt')}>Date Added {getSortArrow('createdAt')}</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -168,7 +120,7 @@ const JobBoard = () => {
       </div>
 
       <div className="pagination">
-        {Array.from({ length: Math.ceil(filteredJobs.length / jobsPerPage) }, (_, i) => (
+        {Array.from({ length: Math.ceil(jobs.length / jobsPerPage) }, (_, i) => (
           <button key={i} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? 'active' : ''}>
             {i + 1}
           </button>
