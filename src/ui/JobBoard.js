@@ -24,6 +24,7 @@ const JobBoard = () => {
       }
     };
     fetchJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Filter jobs based on search query
