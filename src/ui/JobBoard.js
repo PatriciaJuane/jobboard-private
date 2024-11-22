@@ -90,7 +90,7 @@ const JobBoard = () => {
         </div>
       </div>
 
-      <h1>DevAccelerator's Private Job Board</h1>
+      <h1 style={{marginTop: 60}}>DevAccelerator's Private Job Board</h1>
 
       {/* Search Input */}
       <div className="search-container">
